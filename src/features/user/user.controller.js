@@ -1,6 +1,12 @@
 import UserModel from "./user.model.js";
 import jwt from "jsonwebtoken";
+import UserRepository from "./user.repository.js";
+import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
 export default class UserController{
+    constructor()
+    {
+        this.userRepository = new UserRepository();
+    }
     signIn(req, res)
     {
         let user = UserModel.signIn(req.body.email, req.body.password);
@@ -21,15 +27,21 @@ export default class UserController{
     }
     async signUp(req, res)
     {
-        console.log(req.body);
-        let newUser = req.body;
-        let user = await UserModel.signUp(newUser.name, newUser.email, newUser.password, newUser.type);
+        try {
+        const {name, email, password, type} = req.body;
+        let user = new UserModel(name, email, password, type);
+        await this.userRepository.signUp(user);
         if(!user)
         {
             res.status(401).send('not able to create new User');
         }
         else{
             res.status(200).send(user);
+        }
+    } 
+        catch (error) {
+            console.log(error)
+            throw new customErrorHandler(500, 'Something went wrong in signUp method')
         }
     }
 }
