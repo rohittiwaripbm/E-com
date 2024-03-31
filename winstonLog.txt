@@ -19,3 +19,5 @@
 {"level":"info","message":"/api/users/signup - {\"name\":\"customer1\",\"email\":\"customer1@gmail.com\",\"password\":\"pass\",\"type\":\"customer\"}","service":"request-logging"}
 {"level":"info","message":"/api/users/signup - {\"name\":\"customer1\",\"email\":\"customer1@gmail.com\",\"password\":\"pass\",\"type\":\"customer\"}","service":"request-logging"}
 {"level":"info","message":"/api/users/signup - {\"name\":\"customer1\",\"email\":\"customer1@gmail.com\",\"password\":\"pass\",\"type\":\"customer\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"customer1\",\"email\":\"customer1@gmail.com\",\"password\":\"pass\",\"type\":\"customer\"}","service":"request-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"saller\",\"email\":\"saller@gmail.com\",\"password\":\"pass\",\"type\":\"saller\"}","service":"request-logging"}

@@ -7,9 +7,11 @@ export default class UserController{
     {
         this.userRepository = new UserRepository();
     }
-    signIn(req, res)
+    async signIn(req, res)
     {
-        let user = UserModel.signIn(req.body.email, req.body.password);
+        try{
+            let {email, password} = req.body;
+            let user = await this.userRepository.signIn(email, password);
         if(!user)
         {
             res.status(400).send('no user found');
@@ -23,6 +25,11 @@ export default class UserController{
             res.status(200).cookie("jwtToken",token,{maxAge:900000}).json({status:"success", msg:"login successful", token});
             // res.status(200).send(user);
         }
+    }
+    catch(error)
+    {
+        throw new customErrorHandler(500, 'something went wrong please try  again later');
+    }
         // res.send('this is signIn controller');
     }
     async signUp(req, res)
