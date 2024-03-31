@@ -1,0 +1,12 @@
+/n Tue Mar 26 2024 22:19:28 GMT+0530 (India Standard Time) - /api/products - {}
+ Tue Mar 26 2024 22:22:22 GMT+0530 (India Standard Time) - undefined - undefined  -  /api/products - {}
+ Tue Mar 26 2024 22:22:52 GMT+0530 (India Standard Time) - undefined - undefined  -  /api/cart - {}
+ Tue Mar 26 2024 22:25:53 GMT+0530 (India Standard Time) - undefined - undefined  -  /api/products - {}
+ Tue Mar 26 2024 22:26:34 GMT+0530 (India Standard Time) - undefined - undefined  -  /api/products - {}
+ Tue Mar 26 2024 22:31:45 GMT+0530 (India Standard Time) - 1 - saller@gmail.com  -  /api/products - {}
+ Tue Mar 26 2024 22:32:33 GMT+0530 (India Standard Time) - 1 - saller@gmail.com  -  /api/cart - {}
+ Tue Mar 26 2024 22:33:38 GMT+0530 (India Standard Time) - 1 - saller@gmail.com  -  /api/products/rate?userId=2&productId=2&rating=5 - {"email":"saller@gmail.com","password":"pass"}
+ Tue Mar 26 2024 22:34:27 GMT+0530 (India Standard Time) - 2 - customer@gmail.com  -  /api/products - {}
+ Tue Mar 26 2024 22:34:38 GMT+0530 (India Standard Time) - 2 - customer@gmail.com  -  /api/cart - {}
+ Tue Mar 26 2024 22:35:30 GMT+0530 (India Standard Time) - 2 - customer@gmail.com  -  /api/products/rate?userId=2&productId=2&rating=5 - {}
+ Tue Mar 26 2024 22:36:08 GMT+0530 (India Standard Time) - 2 - customer@gmail.com  -  /api/users/signup - {}

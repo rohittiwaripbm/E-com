@@ -1,0 +1,88 @@
+{
+    "swagger":"2.0",
+    "info":{
+        "version":"1.0.0",
+        "description":"API for E-commerce application",
+        "title":"E-commerce API"
+    },
+    "host":"localhost:3200",
+    "paths":{
+        "/api/users/signin":{
+
+            "post":{
+            "tags":["users"],
+
+                "summary":"login",
+                "description": "user login to get token",
+                "parameters": [
+                    {
+                        "in":"body",
+                        "name":"body",
+                        "description": "user Credentials",
+                        "schema":{
+                            "type": "Object",
+                            "properties": {
+                                "email":{
+                                    "type":"string"
+                                },
+                                "password":{
+                                    "type":"string"
+                                }
+                            }
+                            
+                        }
+                    }
+                ],
+
+                "responses":{
+                    "200":{
+                        "description": "ok"
+                    },
+                    "400":{
+                        "description":"no user found"
+                    }
+                }
+            }
+        },
+        "/api/products":{
+            "get":{
+            "tags":["Products"],
+
+                "summary":"Get products",
+                "description": "get all the products if user is authanticated",
+                "security":[
+                    {"JWT":{
+
+                    }}
+                ],
+                "responses":{
+                    "200":{
+                        "description": "getting all the products"
+                    },
+                    "401":{
+                        "description":"unauthorized"
+                    }
+                }
+            },
+            "post":{
+                "tags":["Products"],
+    
+                    "summary":"Get products",
+                    "description": "get all the products if user is authanticated",
+                    "security":[
+                        {"JWT":{
+    
+                        }}
+                    ],
+                    "responses":{
+                        "200":{
+                            "description": "getting all the products"
+                        },
+                        "401":{
+                            "description":"unauthorized"
+                        }
+                    }
+                }
+        }
+    }
+}
