@@ -2,6 +2,7 @@ import UserModel from "./user.model.js";
 import jwt from "jsonwebtoken";
 import UserRepository from "./user.repository.js";
 import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
+import bcrypt, { hash } from 'bcrypt';
 export default class UserController{
     constructor()
     {
@@ -10,20 +11,29 @@ export default class UserController{
     async signIn(req, res)
     {
         try{
-            let {email, password} = req.body;
-            let user = await this.userRepository.signIn(email, password);
+            let {email} = req.body;
+            let user = await this.userRepository.findByEmail(email);
         if(!user)
         {
             res.status(400).send('no user found');
         }
         else{
+            const result = await bcrypt.compare(req.body.password, user.password);
+            if(result)
+            {
             //1.create token
-            const token = jwt.sign({userID:user.id, email:user.email, name:user.name}, "EBE5C9AF48B26",{
+            console.log(user)
+            console.log(user._id)
+            const token = jwt.sign({userID:user._id, email:user.email, name:user.name}, process.env.JWT_SECRET,{
                 expiresIn:'1h',
             })
             //res.status(200).send(token);
             res.status(200).cookie("jwtToken",token,{maxAge:900000}).json({status:"success", msg:"login successful", token});
             // res.status(200).send(user);
+        }
+        else{
+            res.status(201).send('Invalid password');
+        }
         }
     }
     catch(error)
@@ -36,7 +46,8 @@ export default class UserController{
     {
         try {
         const {name, email, password, type} = req.body;
-        let user = new UserModel(name, email, password, type);
+        const hashedPassword = await bcrypt.hash(password, 12);
+        let user = new UserModel(name, email, hashedPassword, type);
         await this.userRepository.signUp(user);
         if(!user)
         {

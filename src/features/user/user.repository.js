@@ -11,19 +11,36 @@ export default class UserRepository {
             const collection = db.collection("users");
             // let newUser = new UserModel(name, email, password, type);
             await collection.insertOne(newUser);
-            return newUser;
+            return newUser; //Should exclude password from this
         } catch (error) {
             throw new customErrorHandler(500, "Something is not working fine");
         }
     }
 
-    async signIn(email, password)
+    // async signIn(email, password)
+    // {
+    //     const db = getDB();
+
+    //     const collection = db.collection('users');
+
+    //     return await collection.findOne({email, password});
+    // }
+
+    async findByEmail(email)
     {
-        const db = getDB();
+        try{
+            const db = getDB();
 
-        const collection = db.collection('users');
+            const collection = db.collection('users');
+    
+            return await collection.findOne({email});
 
-        return await collection.findOne({email, password});
+        }
+        catch(error)
+        {
+            throw new customErrorHandler(500, 'something went wrong');
+        }
+
     }
     
 }

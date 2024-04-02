@@ -14,7 +14,8 @@ const jwtAuth = (req,res,next)=>
 
     //3. Check if token is valid
     try {
-        const payload = jwt.verify(jwtToken, "EBE5C9AF48B26");
+        console.log('come in jwt middleware')
+        const payload = jwt.verify(jwtToken, process.env.JWT_SECRET);
         console.log(payload);
         req.userID = payload.userID;
         req.userEmail = payload.email;
