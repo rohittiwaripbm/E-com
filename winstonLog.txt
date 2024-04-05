@@ -158,3 +158,11 @@
 {"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=5 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=5 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=5 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=5 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=2 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc7a63ec64ee8a39d9f3d&rating=2 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=2 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=4 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=4 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=4 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=2 - {}","service":"request-logging"}

@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import { getDB } from "../../config/mongodb.js";
 import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
 
@@ -72,20 +72,61 @@ export default class ProductRepository {
         }
     }
 
+    // async rate(userID, productId, rating)
+    // {
+    //     try{
+    //         const db = getDB();
+    //         const collection = db.collection(this.collection);
+    //         //1. Find the product
+    //         const product = await collection.findOne({_id:new ObjectId(productId)});
+
+    //         //2. Find the rating of that product
+    //         const userRating = await product?.rating?.find(r=>r.userID==userID);
+    //         if (userRating) {
+    //             //3. update rating according to that
+    //             await collection.updateOne({_id:new ObjectId(productId), "rating.userID": new ObjectId(userID)},{
+    //                 $set:{
+    //                     "rating.$.rating":rating
+    //                 }
+    //             })
+    //         } else {
+    //             await collection.updateOne({
+    //                 _id:new ObjectId(productId)
+    //             }, {$push:{rating:{userID: new ObjectId(userID), rating}}});
+    //         }
+
+    //     }
+    //     catch(error)
+    //     {
+    //         throw new customErrorHandler(500, 'not able to add ratings')
+    //     }
+    // }
+
+
+    //Avoiding Race condition
+
     async rate(userID, productId, rating)
     {
         try{
             const db = getDB();
             const collection = db.collection(this.collection);
+
+            //atomic operations 
+            //either both run or no method run
+            //1. Removing existing entry
+
             await collection.updateOne({
                 _id:new ObjectId(productId)
-            }, {$push:{rating:{userID, rating}}});
+            },{$pull:{rating:{userID:new ObjectId(userID)}}})
+            //2. Adding new Entry
+            await collection.updateOne({
+                _id:new ObjectId(productId)
+            }, {$push:{rating:{userID: new ObjectId(userID), rating}}});
+
         }
         catch(error)
         {
             throw new customErrorHandler(500, 'not able to add ratings')
         }
     }
-
-
 }
