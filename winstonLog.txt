@@ -166,3 +166,6 @@
 {"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=4 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=4 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=2 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=2 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=3 - {}","service":"request-logging"}
+{"level":"info","message":"/api/products/rate?productId=660bc78f3ec64ee8a39d9f3c&rating=5 - {}","service":"request-logging"}
