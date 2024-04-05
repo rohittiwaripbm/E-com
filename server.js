@@ -14,7 +14,8 @@ import loggerMiddlware from './src/middlewares/logger.middleware.js';
 import winstonLoggerMiddleware from './src/middlewares/winstonLogger.middleware.js';
 import { logger } from './src/middlewares/winstonLogger.middleware.js';
 import connectToMongoDB from './src/config/mongodb.js';
-import { errorhandlerMiddleware } from './src/middlewares/errorhandler.middleware.js';
+import {customErrorHandler, errorHandlerMiddleware } from './src/middlewares/errorhandler.middleware.js';
+import { newErrorHandler } from './src/middlewares/newErrorHandler.middleware.js';
 let server = express();
 
 // Middleware setup
@@ -41,8 +42,11 @@ server.use('/api/users', userRouter);
 server.use('/api/cart',jwtAuth, cartRouter);
 
 server.get('/', (req, res) => {
-    res.send('e-com api server is running fine');
+    res.status(200).send('e-com api server is running fine');
 });
+
+
+// server.use(errorHandlerMiddleware);
 
 //if no paths are found, have to put this api in the last so that will able to hit all the api if put on top it will not allow to run any other apis so have to put this in the last of all api's;
 
@@ -50,8 +54,7 @@ server.use((req, res)=>{
     res.status(404).send("api not found");
 });
 
-
-server.use(errorhandlerMiddleware);
+server.use(newErrorHandler)
 
 server.listen(3200, () => {
     console.log('Server is running at http://localhost:3200/');

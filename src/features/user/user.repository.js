@@ -2,13 +2,16 @@ import { getDB } from "../../config/mongodb.js";
 import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
 
 export default class UserRepository {
+    constructor(){
+        this.collection = 'users'
+    }
     async signUp(newUser) // call this function from our controller
     {
         try {
             //1. Get the database
             const db = getDB();
             //2. Get the collection
-            const collection = db.collection("users");
+            const collection = db.collection(this.collection);
             // let newUser = new UserModel(name, email, password, type);
             await collection.insertOne(newUser);
             return newUser; //Should exclude password from this
@@ -31,7 +34,7 @@ export default class UserRepository {
         try{
             const db = getDB();
 
-            const collection = db.collection('users');
+            const collection = db.collection(this.collection);
     
             return await collection.findOne({email});
 

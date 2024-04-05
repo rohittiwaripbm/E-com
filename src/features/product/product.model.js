@@ -1,30 +1,13 @@
 import UserModel from "../user/user.model.js";
 export default class ProductModel{
-    constructor(productId, productName, productPrice, productImage, productSize, productCategory){
-        this.productId = productId;
+    constructor(productName, productPrice, productImage, productSize, productCategory){
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.productSize = productSize;
         this.productCategory = productCategory;
     }
-    static getAllProducts()
-    {
-        return products;
-    }
-    static addProduct(product)
-    {
-        // product.productId = products.length+1;
-        let newProduct = new ProductModel(products.length+1,product.productName,product.productPrice,product.imageUrl,product.productSize,product.productCategory);
-        products.push(newProduct);
-        return newProduct;
-    }
-    static getOneProduct(id)
-    {
-        let product = products.find((i) => i.productId == id);
-        // console.log(product);
-        return product;
-    }
+
     static filterProductModel(minPrice, maxPrice, category) {
         const result = products.filter((product) => {
             return (
@@ -69,12 +52,12 @@ export default class ProductModel{
 }
 
 let products = [
-    new ProductModel(1,'Shirt', 500, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wear'),
-    new ProductModel(2,'Pant', 800, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wear'),
-    new ProductModel(3,'Shoes', 2000, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'footwear'),
-    new ProductModel(4,'Computer', 50000, 'https://rb.gy/zjlw45','' ,'electronics'),
-    new ProductModel(5,'Noodles', 100, 'https://rb.gy/zjlw45', '','food'),
-    new ProductModel(6,'bed', 5000, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wooden'),
-    new ProductModel(7,'lower', 1500, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'sportswear'),
+    new ProductModel('Shirt', 500, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wear'),
+    new ProductModel('Pant', 800, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wear'),
+    new ProductModel('Shoes', 2000, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'footwear'),
+    new ProductModel('Computer', 50000, 'https://rb.gy/zjlw45','' ,'electronics'),
+    new ProductModel('Noodles', 100, 'https://rb.gy/zjlw45', '','food'),
+    new ProductModel('bed', 5000, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'wooden'),
+    new ProductModel('lower', 1500, 'https://rb.gy/zjlw45',['M', 'L', 'XL'], 'sportswear'),
 
 ]

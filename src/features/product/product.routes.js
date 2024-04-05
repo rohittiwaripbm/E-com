@@ -5,10 +5,16 @@ const productRouter = express.Router();
 
 let productController = new ProductController();
 
-productRouter.get('/', productController.getAllProduct);
-productRouter.post('/',uploads.single('imageUrl'), productController.addProduct);
-productRouter.get('/filter', productController.filterProduct);
-productRouter.post('/rate', productController.rateProduct);
-productRouter.get('/:id',productController.getOneProduct);
+productRouter.get('/',(req, res)=>{
+    productController.getAllProduct(req, res);
+} );
+productRouter.post('/',uploads.single('imageUrl'),(req, res)=>{
+    productController.addProduct(req, res)
+} );
+productRouter.get('/filter',(req, res)=>{
+    productController.filterProduct(req, res);
+} )
+productRouter.post('/rate', (req, res)=>{productController.rateProduct(req, res)});
+productRouter.get('/:id',(req, res)=>{productController.getOneProduct(req, res)});
 
 export default productRouter;
