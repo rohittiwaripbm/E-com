@@ -1,68 +1,63 @@
 import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
 import ProductModel from "./product.model.js";
 import ProductRepository from "./product.repository.js";
-export default class ProductController{
-    constructor(){
+export default class ProductController {
+    constructor() {
         this.productRepository = new ProductRepository();
     }
-    async getAllProduct(req, res)
-    {
+    async getAllProduct(req, res) {
         console.log('came in getAll product method');
-        console.log('data comming from payloads from jwt tokens  - '+req.userID+' - ' + req.userEmail);
-        let product =  await this.productRepository.getAll();
+        console.log('data comming from payloads from jwt tokens  - ' + req.userID + ' - ' + req.userEmail);
+        let product = await this.productRepository.getAll();
         // let products = ProductModel.getAllProducts();
         res.status(200).send(product)
     }
 
-    async addProduct(req, res)
-    {
+    async addProduct(req, res) {
         console.log('inside add products');
         console.log(req.body);
-        const{productName,productPrice,productSize,productCategory } = req.body;
+        const { productName, productPrice, productSize, productCategory } = req.body;
 
         const newProduct = {
             productName,
-            productPrice : parseFloat(productPrice),
-            productSize : productSize.split(','),
-            imageUrl : req.file.filename,
+            productPrice: parseFloat(productPrice),
+            productSize: productSize.split(','),
+            imageUrl: req.file.filename,
             productCategory
         }
         //productName, productPrice, productImage, productSize, productCategory
 
-        let newProduct1 = new ProductModel(newProduct.productName,newProduct.productPrice, newProduct.imageUrl, newProduct.productSize, newProduct.productCategory );
+        let newProduct1 = new ProductModel(newProduct.productName, newProduct.productPrice, newProduct.imageUrl, newProduct.productSize, newProduct.productCategory);
 
         const createdProduct = await this.productRepository.addProduct(newProduct1);
         res.status(201).send(createdProduct);
     }
 
-    async rateProduct(req, res)
-    {
+    async rateProduct(req, res) {
         try {
             const userId = req.userID;
-        const productId = req.query.productId;
-        const rating = req.query.rating;
+            const productId = req.query.productId;
+            const rating = req.query.rating;
 
-        await this.productRepository.rate(userId, productId, rating);
-        res.status(201).send('rating added successfully');
+            await this.productRepository.rate(userId, productId, rating);
+            res.status(201).send('rating added successfully');
         } catch (error) {
             console.log(error)
             throw new customErrorHandler(500, 'Not able to add rating')
         }
-        
-      
+
+
     }
 
-    async getOneProduct(req, res)
-    {
+    async getOneProduct(req, res) {
         try {
             let id = req.params.id;
             let product = await this.productRepository.getOneProduct(id);
             // let product=ProductModel.getOneProduct(id);
-            if(!product)
-            {
+            if (!product) {
                 return res.status(404).send('no product found');
             }
-            else{
+            else {
                 return res.status(200).send(product);
             }
         } catch (error) {
@@ -73,11 +68,10 @@ export default class ProductController{
 
     }
 
-    async filterProduct(req, res)
-    {
+    async filterProduct(req, res) {
         // throw new customErrorHandler(500, 'something went wrong in filter product');
         try {
-         
+
             const minPrice = req.query.minPrice;
             const maxPrice = req.query.maxPrice;
             const category = req.query.category;
