@@ -17,7 +17,7 @@ const jwtAuth = (req,res,next)=>
         console.log('come in jwt middleware')
         const payload = jwt.verify(jwtToken, process.env.JWT_SECRET);
         console.log(payload);
-        req.userID = payload.userID;
+        req.userID = payload.userID;                            
         req.userEmail = payload.email;
         console.log(req.userID+' - ' + req.userEmail);
     } catch (error) {
