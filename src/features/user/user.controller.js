@@ -13,6 +13,7 @@ export default class UserController{
         try{
             let {email} = req.body;
             let user = await this.userRepository.findByEmail(email);
+            console.log('Came in signIn user-' , user)
         if(!user)
         {
             res.status(400).send('no user found');
@@ -22,9 +23,9 @@ export default class UserController{
             if(result)
             {
             //1.create token
-            console.log(user)
+            console.log('Came in signIn user-' , user.type)
             console.log(user._id)
-            const token = jwt.sign({userID:user._id, email:user.email, name:user.name}, process.env.JWT_SECRET,{
+            const token = jwt.sign({userID:user._id, email:user.email, name:user.name, type:user.type}, process.env.JWT_SECRET,{
                 expiresIn:'1h',
             })
             //res.status(200).send(token);

@@ -26,7 +26,7 @@ export class customErrorHandler extends Error {
   
   export const errorHandlerMiddleware = (err, req, res, next) => {
     // Write your code here
-    console.log(err);
+    console.log(err.message);
     if(err instanceof customErrorHandler)
     {
       res.status(err.statusCode).send(err.message);

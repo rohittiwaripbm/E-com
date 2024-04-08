@@ -9,6 +9,7 @@ import productRouter from './src/features/product/product.routes.js';
 import cookieParser from 'cookie-parser';
 import userRouter from './src/features/user/user.routes.js';
 import cartRouter from './src/features/cart/cart.routes.js';
+import orderRouter from './src/features/order/order.routes.js';
 import apiDocs from './swagger.json' assert{"type": 'json'};
 import loggerMiddlware from './src/middlewares/logger.middleware.js';
 import winstonLoggerMiddleware from './src/middlewares/winstonLogger.middleware.js';
@@ -16,6 +17,8 @@ import { logger } from './src/middlewares/winstonLogger.middleware.js';
 import connectToMongoDB from './src/config/mongodb.js';
 import {customErrorHandler, errorHandlerMiddleware } from './src/middlewares/errorhandler.middleware.js';
 import { newErrorHandler } from './src/middlewares/newErrorHandler.middleware.js';
+import adminGuard from './src/UserRolesandPermissions/roleGuards.js';
+import { connectUsingMongoose } from './src/config/mongooseConfig.js';
 let server = express();
 
 // Middleware setup
@@ -27,12 +30,20 @@ server.use(express.json());
 
 server.use(winstonLoggerMiddleware);
 
+
 // Routes setup
+//connect db here;
+server.get('/profile', (req, res)=>{
+    res.send('testing profile page')
+})
 
 //api docs router
 server.use('/api-docs', swagger.serve, swagger.setup(apiDocs));
 // Handling all the product routes
+// server.use('/api/products', jwtAuth,adminGuard, productRouter);
+
 server.use('/api/products', jwtAuth, productRouter);
+
 
 // Handling all the user routes
 server.use('/api/users', userRouter);
@@ -40,7 +51,7 @@ server.use('/api/users', userRouter);
 //Handling all the Cart routes
 
 server.use('/api/cart',jwtAuth, cartRouter);
-
+server.use('/api/orders', jwtAuth, orderRouter);
 server.get('/', (req, res) => {
     res.status(200).send('e-com api server is running fine');
 });
@@ -55,8 +66,8 @@ server.use((req, res)=>{
 });
 
 server.use(newErrorHandler)
-
 server.listen(3200, () => {
     console.log('Server is running at http://localhost:3200/');
-    connectToMongoDB();
+    // connectToMongoDB();
+    connectUsingMongoose();
 });

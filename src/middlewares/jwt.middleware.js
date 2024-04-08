@@ -19,7 +19,9 @@ const jwtAuth = (req,res,next)=>
         console.log(payload);
         req.userID = payload.userID;                            
         req.userEmail = payload.email;
-        console.log(req.userID+' - ' + req.userEmail);
+        req.userRole = payload.type;
+
+        console.log(req.userID+' - ' + req.userEmail+ ' userRole - ' + req.userRole);
     } catch (error) {
         return res.status(401).send('unauthorized');
     }

@@ -22,7 +22,7 @@ const createIndexes = async(db)=>{
     try {
         await db.collection('products').createIndex({productPrice:1});
         await db.collection('products').createIndex({productName:1, productCategory:-1});
-        // await db.collection('products').createIndex({desc:"text"}) for text based indexes
+        // await db.collection('products').createIndex({desc:"text"}) for text based index
         console.log('indexes are created')
         
     } catch (error) {

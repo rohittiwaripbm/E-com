@@ -6,11 +6,17 @@ export default class ProductController {
         this.productRepository = new ProductRepository();
     }
     async getAllProduct(req, res) {
-        console.log('came in getAll product method');
-        console.log('data comming from payloads from jwt tokens  - ' + req.userID + ' - ' + req.userEmail);
-        let product = await this.productRepository.getAll();
-        // let products = ProductModel.getAllProducts();
-        res.status(200).send(product)
+        try {
+            console.log('came in getAll product method');
+            console.log('data comming from payloads from jwt tokens  - ' + req.userID + ' - ' + req.userEmail);
+            let product = await this.productRepository.getAll();
+            asd
+            // let products = ProductModel.getAllProducts();
+            res.status(200).send(product)
+        } catch (error) {
+            res.status(500).send('something went wrong');
+        }
+
     }
 
     async addProduct(req, res) {
@@ -21,7 +27,7 @@ export default class ProductController {
         const newProduct = {
             productName,
             productPrice: parseFloat(productPrice),
-            productSize: productSize.split(','),
+            productSize: productSize?.split(','),
             imageUrl: req.file.filename,
             productCategory
         }

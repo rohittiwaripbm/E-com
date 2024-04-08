@@ -11,7 +11,7 @@ export default class ProductRepository {
     async getAll() {
         try {
             const db = getDB();
-            const collection = db.collection(this.collection);
+            const collection = db.collection(this.collection);  
             return await collection.find().toArray();
 
         }
