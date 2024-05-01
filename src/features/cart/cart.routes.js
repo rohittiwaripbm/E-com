@@ -10,6 +10,20 @@ cartRouter.get('/', (req, res)=>{
 // cartRouter.post('/', cartController.add);
 cartRouter.post('/', (req, res)=>{
     cartController.add(req, res)
-})
+});
+
 cartRouter.delete('/:id', cartController.delete);
 export default cartRouter;
+
+//db
+//roles: 
+
+//roles
+ //sub-admin 
+
+
+ //RightTable
+ //read : sub-admin
+ //write: 
+ //delete:
+ //update: 

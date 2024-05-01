@@ -1,49 +1,57 @@
-import { getDB } from "../../config/mongodb.js";
-import { customErrorHandler } from "../../middlewares/errorhandler.middleware.js";
+//1. get the model, model comes from Schema
+import mongoose from 'mongoose'
+import { userSchema } from './user.schema.js'
+import { customErrorHandler } from '../../middlewares/errorhandler.middleware.js';
+
+
+//creating model from schema
+const UserModel = mongoose.model('user', userSchema)
 
 export default class UserRepository {
-    constructor(){
-        this.collection = 'users'
-    }
-    async signUp(newUser) // call this function from our controller
-    {
+    async signUp(user) {
         try {
-            //1. Get the database
-            const db = getDB();
-            //2. Get the collection
-            const collection = db.collection(this.collection);
-            // let newUser = new UserModel(name, email, password, type);
-            await collection.insertOne(newUser);
-            return newUser; //Should exclude password from this
+            //create Instence of model
+            const newUser = new UserModel(user);
+            await newUser.save();
+            return newUser;
         } catch (error) {
-            throw new customErrorHandler(500, "Something is not working fine");
+            console.log('something went wrong in userRepository Signup Method:- ', error.message);
+            // throw new customErrorHandler(401, error.message)
+        }
+
+    }
+
+    async signIn(email, password) {
+        try {
+            return await UserModel.findOne({email, password})
+        } catch (error) {
+            console.log('something went wrong in signIN in userRepository : ', error.message)
         }
     }
-
-    // async signIn(email, password)
-    // {
-    //     const db = getDB();
-
-    //     const collection = db.collection('users');
-
-    //     return await collection.findOne({email, password});
-    // }
 
     async findByEmail(email)
     {
-        try{
-            const db = getDB();
-
-            const collection = db.collection(this.collection);
-    
-            return await collection.findOne({email});
-
+        try {
+            return await UserModel.findOne({email});
+        } catch (error) {
+            console.log('something went wrong in findByEmail in userRepository: ', error.message)
         }
-        catch(error)
-        {
-            throw new customErrorHandler(500, 'something went wrong');
-        }
-
     }
-    
+
+    async resetPassword(userId, newPassword)
+    {
+        try {
+            let user = await UserModel.findById(userId);
+            if(user)
+            {
+                user.password = newPassword;
+                await user.save();
+            }
+            else{
+                throw new Error('user not found');
+            }
+        } catch (error) {
+            throw new Error('something went wrong in resetPassword');
+        }
+    }
 }

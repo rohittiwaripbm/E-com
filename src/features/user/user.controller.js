@@ -63,4 +63,17 @@ export default class UserController{
             throw new customErrorHandler(500, 'Something went wrong in signUp method')
         }
     }
+
+    async resetPassword(req, res)
+    {
+        const {newPassword} =  req.body;
+        const userId = req.userID;
+        const hashedPassword = await bcrypt.hash(newPassword, 12);
+        try {
+            await this.userRepository.resetPassword(userId, hashedPassword);
+            res.status(200).send('password reset successfully');
+        } catch (error) {
+            res.status(404).send('something went wrong in controller ' + error);
+        }
+    }
 }

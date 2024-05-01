@@ -10,7 +10,7 @@ export default class ProductController {
             console.log('came in getAll product method');
             console.log('data comming from payloads from jwt tokens  - ' + req.userID + ' - ' + req.userEmail);
             let product = await this.productRepository.getAll();
-            asd
+            
             // let products = ProductModel.getAllProducts();
             res.status(200).send(product)
         } catch (error) {
@@ -22,20 +22,19 @@ export default class ProductController {
     async addProduct(req, res) {
         console.log('inside add products');
         console.log(req.body);
-        const { productName, productPrice, productSize, productCategory } = req.body;
-
+        // const { productName, productPrice, productSize, productCategory } = req.body;
+        const {name, price, category, description, inStock} = req.body;
+        let imageUrl = req.file.filename;
         const newProduct = {
-            productName,
-            productPrice: parseFloat(productPrice),
-            productSize: productSize?.split(','),
-            imageUrl: req.file.filename,
-            productCategory
+            name,
+            price, 
+            category,
+            description,
+            image:imageUrl,
+            inStock
         }
-        //productName, productPrice, productImage, productSize, productCategory
 
-        let newProduct1 = new ProductModel(newProduct.productName, newProduct.productPrice, newProduct.imageUrl, newProduct.productSize, newProduct.productCategory);
-
-        const createdProduct = await this.productRepository.addProduct(newProduct1);
+        const createdProduct = await this.productRepository.addProduct(newProduct);
         res.status(201).send(createdProduct);
     }
 
